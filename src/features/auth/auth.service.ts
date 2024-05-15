@@ -12,12 +12,14 @@ export const authService = {
   },
 
   checkLogin: async () => {
-    const token = storage.getString(storageKeys.accessToken) as string;
+    const token = storage.getString(storageKeys.accessToken) as
+      | string
+      | undefined;
 
     if (!token) return false;
 
     const decodedToken: JwtPayload = jwtDecode(token);
-    var current_time = new Date().getTime() / 1000;
+    let current_time = new Date().getTime() / 1000;
 
     return (
       typeof decodedToken.exp === 'undefined' ||

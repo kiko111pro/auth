@@ -21,6 +21,7 @@ const ERROR = (resp: AxiosError) => {
     showMessage({
       description: 'Please login again!',
       message: 'Session Expired!',
+      type: 'warning',
     });
     store.dispatch(logout());
   }
