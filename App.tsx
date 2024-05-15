@@ -2,16 +2,18 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
-import {Provider, useDispatch, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
+
+import {useAppDispatch, useAppSelector} from './src/app/hooks';
 
 import MainApp from './src/navigation/MainApp';
 import RootApp from './src/navigation/RootApp';
-import {store, RootState, AppDispatch} from './src/app/store';
+import {store} from './src/app/store';
 import {checkLogin} from './src/features/auth/auth.reducer';
 
 const App = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const {loggedIn} = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
+  const {loggedIn} = useAppSelector(state => state.auth);
 
   useEffect(() => {
     dispatch(checkLogin());

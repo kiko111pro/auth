@@ -11,6 +11,7 @@ const Home = () => {
 
   const fetchProfile = async () => {
     const res = await profileService.getUserProfile();
+    console.log(res);
   };
 
   return (

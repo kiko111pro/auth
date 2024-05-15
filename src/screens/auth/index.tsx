@@ -1,14 +1,12 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import {Base, Button} from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../app/store';
 import {login} from '../../features/auth/auth.reducer';
-import {showMessage} from 'react-native-flash-message';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 
 const Auth = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const authSelector = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
+  const authSelector = useAppSelector(state => state.auth);
 
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
@@ -18,7 +16,7 @@ const Auth = () => {
     const postData = {
       username: 'kminchelle',
       password: '0lelplR',
-      expiresInMins: 30,
+      expiresInMins: 0.2,
     };
 
     dispatch(login(postData));
