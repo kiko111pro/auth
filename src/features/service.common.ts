@@ -22,6 +22,9 @@ const ERROR = (resp: AxiosError) => {
       description: 'Please login again!',
       message: 'Session Expired!',
       type: 'warning',
+      textStyle: {
+        color: '#000',
+      },
     });
     store.dispatch(logout());
   }
@@ -51,6 +54,7 @@ export const get = async (
       return {
         isSuccessful: false,
         data: 'Unexpected Error!',
+        status: 0,
       };
   }
 };
@@ -70,6 +74,7 @@ export const post = async (
       return {
         isSuccessful: false,
         data: 'Unexpected Error!',
+        status: 0,
       };
   }
 };

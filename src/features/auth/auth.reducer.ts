@@ -1,10 +1,16 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {
+  AsyncThunkPayloadCreator,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 import {authService} from './auth.service';
+import {userLoginDetails} from '../../utils/types.api';
+import {showMessage} from 'react-native-flash-message';
 
 const initialState = {
   loggedIn: false,
   accessToken: null,
-  userLoginDetails: null as null | object,
+  userLoginDetails: null as null | userLoginDetails,
   loading: false,
   isError: false,
   error: '',
@@ -57,7 +63,8 @@ const authSlice = createSlice({
 
       //checkLogin
       .addCase(checkLogin.fulfilled, (state, action) => {
-        state.loggedIn = action.payload;
+        state.loggedIn = action.payload.loginTokenValid;
+        state.userLoginDetails = action.payload.loginData;
       });
   },
 });

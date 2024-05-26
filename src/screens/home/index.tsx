@@ -4,21 +4,32 @@ import {Base, Button} from '../../components';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../app/store';
 import {logout} from '../../features/auth/auth.reducer';
-import {profileService} from '../../features/profile/profile.service';
+import {useAppSelector} from '../../app/hooks';
+import {fetchProfile} from '../../features/profile/profile.reducer';
 
 const Home = () => {
   const dispatch: AppDispatch = useDispatch();
+  const authSelector = useAppSelector(s => s.auth);
+  const profileSelector = useAppSelector(s => s.profile);
 
-  const fetchProfile = async () => {
-    const res = await profileService.getUserProfile();
-    console.log(res);
-  };
+  if (!authSelector.userLoginDetails || !profileSelector.userProfile)
+    return (
+      <Base>
+        <Text>No Profile exists</Text>
+      </Base>
+    );
 
   return (
     <Base>
       <>
+        <Text>{authSelector.userLoginDetails.firstName}</Text>
+        <Text>{authSelector.userLoginDetails.lastName}</Text>
         <Button title="Logout" onPress={() => dispatch(logout())} />
-        <Button title="Profile" onPress={fetchProfile} />
+        <Button
+          title="Profile"
+          loading={profileSelector.loading}
+          onPress={() => dispatch(fetchProfile())}
+        />
       </>
     </Base>
   );

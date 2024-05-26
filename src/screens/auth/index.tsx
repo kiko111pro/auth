@@ -14,9 +14,9 @@ const Auth = () => {
 
   const handleSubmit = () => {
     const postData = {
-      username: 'kminchelle',
-      password: '0lelplR',
-      expiresInMins: 0.2,
+      username: 'atuny0',
+      password: '9uQFF1Lh',
+      expiresInMins: 30,
     };
 
     dispatch(login(postData));
@@ -45,7 +45,7 @@ const Auth = () => {
         />
         <Button
           onPress={handleSubmit}
-          loading={load}
+          loading={authSelector.loading}
           disabled={false}
           title="Submit"
         />

@@ -7,7 +7,10 @@ export const authService = {
     const url = API + '/auth/login';
     const res = await post(url, data);
 
-    if (res.isSuccessful) storage.set(storageKeys.accessToken, res.data.token);
+    if (res.isSuccessful) {
+      storage.set(storageKeys.accessToken, res.data.token);
+      storage.set(storageKeys.loginDetails, JSON.stringify(res.data));
+    }
     return res;
   },
 
@@ -16,15 +19,23 @@ export const authService = {
       | string
       | undefined;
 
-    if (!token) return false;
+    if (!token)
+      return {
+        loginTokenValid: false,
+        loginData: null,
+      };
 
     const decodedToken: JwtPayload = jwtDecode(token);
     let current_time = new Date().getTime() / 1000;
 
-    return (
-      typeof decodedToken.exp === 'undefined' ||
-      current_time <= decodedToken.exp
-    );
+    const loginData = storage.getString(storageKeys.loginDetails);
+
+    return {
+      loginTokenValid:
+        typeof decodedToken.exp === 'undefined' ||
+        current_time <= decodedToken.exp,
+      loginData: loginData ? JSON.parse(loginData) : null,
+    };
     //will return true if not expired
   },
 
