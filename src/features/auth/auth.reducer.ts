@@ -20,7 +20,9 @@ export const login = createAsyncThunk(
   'auth/login',
   async (payload: object, thunkAPI) => {
     const resp = await authService.login(payload);
+
     if (resp.isSuccessful) return resp.data;
+    showMessage({message: resp.data, type: 'danger'});
 
     return thunkAPI.rejectWithValue(resp.data);
   },

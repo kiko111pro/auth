@@ -16,7 +16,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const {loggedIn} = useAppSelector(state => state.auth);
 
-  const isTestingSomeBullshit = true;
+  const isTestingSomeBullshit = false;
 
   useEffect(() => {
     dispatch(checkLogin());

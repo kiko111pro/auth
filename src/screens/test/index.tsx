@@ -2,18 +2,12 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
-import {FlashView} from '../../components';
+import {FlashView, Input} from '../../components';
 
 const App: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <FlashView style={styles.rectangle} />
-      <FlashView style={styles.circle} />
-      <View style={styles.customView}>
-        <FlashView>
-          <View style={styles.customContent} />
-        </FlashView>
-      </View>
+      <Input />
     </SafeAreaView>
   );
 };
@@ -42,7 +36,7 @@ const styles = StyleSheet.create({
     height: 100,
     marginBottom: 20,
     borderRadius: 90,
-    borderWidth: 2,
+    // borderWidth: 2,
   },
   customFlash: {
     flex: 1,

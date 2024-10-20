@@ -13,10 +13,11 @@ const Auth = () => {
   const [load, setLoad] = useState(false);
 
   const handleSubmit = () => {
+    console.log('Submit');
     const postData = {
-      username: 'atuny0',
-      password: '9uQFF1Lh',
-      expiresInMins: 30,
+      username: 'emilys',
+      password: 'emilyspass',
+      expiresInMins: 1,
     };
 
     dispatch(login(postData));

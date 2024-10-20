@@ -1,14 +1,16 @@
 import {storageKeys} from '../../utils/constants';
-import {API, post, storage} from '../service.common';
+import {post, storage} from '../service.common';
 import {JwtPayload, jwtDecode} from 'jwt-decode';
 
 export const authService = {
   login: async (data: object) => {
-    const url = API + '/auth/login';
+    const url = '/auth/login';
+
     const res = await post(url, data);
 
     if (res.isSuccessful) {
-      storage.set(storageKeys.accessToken, res.data.token);
+      storage.set(storageKeys.accessToken, res.data.accessToken);
+      storage.set(storageKeys.refreshToken, res.data.refreshToken);
       storage.set(storageKeys.loginDetails, JSON.stringify(res.data));
     }
     return res;
